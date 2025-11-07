@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GM STORE - Tu plataforma personal de videojuegos">
+    <meta name="keywords" content="videojuegos, biblioteca, gaming, reseñas, estadísticas">
+    <title>GM STORE - Bienvenido</title>
+    <style>
+        /* Reset y Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --steam-dark: #1a1a1a;
+            --steam-darker: #000000;
+            --steam-blue: #ffffff;
+            --steam-light-blue: #e0e0e0;
+            --steam-hover: #333333;
+            --steam-gradient: linear-gradient(to right, #ffffff 5%, #cccccc 95%);
+            --text-primary: #ffffff;
+            --text-secondary: #999999;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Header estilo Steam */
+        header {
+            background-color: var(--steam-dark);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            height: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logo-icon {
+            font-size: 28px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .logo-text {
+            letter-spacing: 2px;
+            background: var(--steam-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 5px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background-color: var(--steam-hover);
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--steam-gradient);
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .user-section:hover {
+            background-color: var(--steam-hover);
+        }
+
+        .username {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--steam-gradient);
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* Hero Banner estilo Steam */
+        .hero-banner {
+            position: relative;
+            height: 500px;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(200, 200, 200, 0.05) 0%, transparent 50%);
+            animation: pulseOverlay 4s ease-in-out infinite;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        .featured-badge {
+            display: inline-block;
+            background: var(--steam-gradient);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 3px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            animation: slideInLeft 0.6s ease-out;
+        }
+
+        .game-title {
+            font-size: 48px;
+            color: white;
+            margin-bottom: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .game-description {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            line-height: 1.8;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .banner-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            animation: slideInLeft 1.2s ease-out;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-purchase {
+            background: var(--steam-gradient);
+            color: #000000;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-purchase:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-wishlist {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-wishlist:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: var(--text-primary);
+            color: white;
+        }
+
+        .banner-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            animation: slideInLeft 1.4s ease-out;
+        }
+
+        .tag {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 5px 12px;
+            border-radius: 3px;
+            font-size: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .tag:hover {
+            background-color: var(--steam-hover);
+            color: white;
+        }
+
+        .banner-screenshots {
+            display: flex;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+            animation: slideInRight 1s ease-out;
+        }
+
+        .screenshot {
+            width: 120px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .screenshot:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Features Section */
+        .features-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px 80px;
+        }
+
+        .section-title {
+            font-size: 32px;
+            color: white;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.8) 0%, rgba(20, 20, 20, 0.9) 100%);
+            border-radius: 5px;
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, rgba(60, 60, 60, 0.9) 0%, rgba(40, 40, 40, 0.95) 100%);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
+        }
+
+        .feature-image {
+            width: 80px;
+            height: 80px;
+            background: var(--steam-gradient);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            flex-shrink: 0;
+        }
+
+        .feature-info h3 {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .feature-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .feature-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .mini-tag {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 3px 8px;
+            border-radius: 2px;
+            font-size: 11px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .mini-tag {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        /* Footer estilo Steam */
+        footer {
+            background-color: var(--steam-dark);
+            padding: 40px 60px 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffffff;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        /* Animaciones */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes pulseOverlay {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-banner {
+                flex-direction: column;
+                height: auto;
+                padding: 60px 30px;
+                text-align: center;
+            }
+
+            .banner-content {
+                max-width: 100%;
+            }
+
+            .banner-screenshots {
+                margin-top: 40px;
+            }
+
+            .game-title {
+                font-size: 36px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-banner {
+                padding: 40px 20px;
+            }
+
+            .banner-screenshots {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .screenshot {
+                width: 80px;
+                height: 100px;
+                font-size: 30px;
+            }
+
+            .features-section {
+                padding: 30px 20px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .game-title {
+                font-size: 28px;
+            }
+
+            footer {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header estilo Steam -->
+    <header>
+        <nav class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">GM STORE</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio" class="active">TIENDA</a></li>
+                <li><a href="biblioteca.html">BIBLIOTECA</a></li>
+                <li><a href="#comunidad">COMUNIDAD</a></li>
+                <li><a href="estadisticas.html">PERFIL</a></li>
+            </ul>
+            <div class="user-section">
+                <span class="username">Usuario</span>
+                <div class="avatar">👤</div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner principal estilo Steam -->
+    <section class="hero-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <div class="featured-badge">DESTACADO</div>
+            <h1 class="game-title">Tu Biblioteca Personal de Juegos</h1>
+            <p class="game-description">Gestiona tu colección, escribe reseñas y comparte tu experiencia gaming</p>
+            <div class="banner-actions">
+                <button class="btn btn-purchase">Comenzar Ahora</button>
+                <button class="btn btn-wishlist">
+                    <span>❤️</span> Agregar a favoritos
+                </button>
+            </div>
+            <div class="banner-tags">
+                <span class="tag">Gestión</span>
+                <span class="tag">Organización</span>
+                <span class="tag">Estadísticas</span>
+                <span class="tag">Social</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de características -->
+    <section class="features-section">
+        <h2 class="section-title">Características Principales</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-image">📚</div>
+                <div class="feature-info">
+                    <h3>Biblioteca Personal</h3>
+                    <p>Organiza todos tus juegos con portadas, descripciones y detalles completos</p>
+                    <div class="feature-tags">
+                        <span class="mini-tag">Gestión</span>
+                        <span class="mini-tag">Organización</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-image">⭐</div>
+                <div class="feature-info">
+                    <h3>Sistema de Reseñas</h3>
+                    <p>Califica con estrellas y escribe reseñas detalladas de tu experiencia</p>
+                    <div class="feature-tags">
+                        <span class="mini-tag">Valoración</span>
+                        <span class="mini-tag">Críticas</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-image">📊</div>
+                <div class="feature-info">
+                    <h3>Estadísticas Avanzadas</h3>
+                    <p>Visualiza horas jugadas, progreso y tu evolución como gamer</p>
+                    <div class="feature-tags">
+                        <span class="mini-tag">Análisis</span>
+                        <span class="mini-tag">Tracking</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-image">✅</div>
+                <div class="feature-info">
+                    <h3>Control de Progreso</h3>
+                    <p>Marca juegos completados, en progreso o pendientes en tu backlog</p>
+                    <div class="feature-tags">
+                        <span class="mini-tag">Backlog</span>
+                        <span class="mini-tag">Completado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer estilo Steam -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>GM STORE</h4>
+                <ul>
+                    <li><a href="#">Acerca de</a></li>
+                    <li><a href="#">Empleos</a></li>
+                    <li><a href="#">Desarrolladores</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Soporte</h4>
+                <ul>
+                    <li><a href="#">Centro de ayuda</a></li>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacidad</a></li>
+                    <li><a href="#">Términos</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 GM STORE. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
